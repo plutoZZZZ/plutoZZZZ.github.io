@@ -161,7 +161,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/06/CUDA%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2024/01/06/CUDA%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">CUDA</a>
         </h2>
 
         <div class="post-meta">
@@ -178,7 +178,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-07 00:09:09" itemprop="dateModified" datetime="2024-01-07T00:09:09+08:00">2024-01-07</time>
+                <time title="修改时间：2024-01-07 00:12:51" itemprop="dateModified" datetime="2024-01-07T00:12:51+08:00">2024-01-07</time>
               </span>
 
           
@@ -192,8 +192,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>title: CUDA</p>
-<p><a target="_blank" rel="noopener" href="https://face2ai.com/">谭升的博客</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34587739">CUDA编程入门极简教程</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410278370">CUDA 矩阵乘法终极优化指南</a><br>安装<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/488518526">CUDA开发环境搭建</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/484016885">CUDA入门示例1：两个整型数组相加</a></p>
+          <p><a target="_blank" rel="noopener" href="https://face2ai.com/">谭升的博客</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34587739">CUDA编程入门极简教程</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410278370">CUDA 矩阵乘法终极优化指南</a><br>安装<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/488518526">CUDA开发环境搭建</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/484016885">CUDA入门示例1：两个整型数组相加</a></p>
 <h1 id="异构计算"><a href="#异构计算" class="headerlink" title="异构计算"></a>异构计算</h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/34346540/1695379720939-c4719264-a604-4e64-ad77-032d555c3a43.png#averageHue=%23d4e4b5&clientId=ufc95048d-434b-4&from=paste&id=u5691862a&originHeight=508&originWidth=1728&originalType=url&ratio=1.5&rotation=0&showTitle=false&size=55420&status=done&style=none&taskId=u7fa1ba5c-5847-4352-9b3a-78ee5e02e5f&title=" alt="image.png"></p>
 <p>GPU的ALU更多，逻辑控制单元更少</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*hello_world.cu</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">__global__ <span class="type">void</span> <span class="title function_">hello_world</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;GPU: Hello world!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;CPU: Hello world!\n&quot;</span>);</span><br><span class="line">  hello_world&lt;&lt;&lt;<span class="number">1</span>,<span class="number">10</span>&gt;&gt;&gt;();</span><br><span class="line">  cudaDeviceReset();<span class="comment">//if no this line ,it can not output hello world from gpu</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
