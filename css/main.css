@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff8bde;
+  background: #ad37cf;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2381,7 +2381,7 @@ body {
   background-image: url("/images/相册.svg");
   background-size: 1em 1em;
   opacity: 1;
-  background-position: 0rem 1rem;
+  background-position: 1rem -1rem;
   background-repeat: no-repeat;
   height: 0.6rem;
   width: 0.6rem;
