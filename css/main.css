@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d4e3cb;
+  background: #f55df1;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2383,8 +2383,8 @@ body {
   opacity: 1;
   background-position: 8px -12px; /* background-position: 0.25rem -0.3rem; */
   background-repeat: no-repeat;
-  height: 16px;
-  width: 16px;
+  height: 8px;
+  width: 8px;
   border-radius: 0rem;
   z-index: 100; /* 设置 z-index 为一个较高的值 */
 /*鼠标停留在图标上时，图标呈现发光效果*/
@@ -2398,8 +2398,8 @@ body {
   opacity: 1;
   background-position: 8px -12px; /* background-position: 0.25rem -0.3rem; */
   background-repeat: no-repeat;
-  height: 16px;
-  width: 16px;
+  height: 8px;
+  width: 8px;
   border-radius: 0rem;
   z-index: 100; /* 设置 z-index 为一个较高的值 */
 /*鼠标停留在图标上时，图标呈现发光效果*/
