@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f55df1;
+  background: #a77fac;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2379,12 +2379,12 @@ body {
 }
 .gallery {
   background-image: url("/images/相册.svg");
-  background-size: 32px 32px; /* background-size: 1em 1em; */
+  background-size: 10px 26px; /* background-size: 1em 1em; */
   opacity: 1;
-  background-position: 8px -12px; /* background-position: 0.25rem -0.3rem; */
+  background-position: 8px -8px; /* background-position: 0.25rem -0.3rem; */
   background-repeat: no-repeat;
-  height: 8px;
-  width: 8px;
+  height: 16px;
+  width: 16px;
   border-radius: 0rem;
   z-index: 100; /* 设置 z-index 为一个较高的值 */
 /*鼠标停留在图标上时，图标呈现发光效果*/
@@ -2394,12 +2394,12 @@ body {
 }
 .gallery {
   background-image: url("/images/相册.svg");
-  background-size: 32px 32px; /* background-size: 1em 1em; */
+  background-size: 10px 26px; /* background-size: 1em 1em; */
   opacity: 1;
-  background-position: 8px -12px; /* background-position: 0.25rem -0.3rem; */
+  background-position: 8px -8px; /* background-position: 0.25rem -0.3rem; */
   background-repeat: no-repeat;
-  height: 8px;
-  width: 8px;
+  height: 16px;
+  width: 16px;
   border-radius: 0rem;
   z-index: 100; /* 设置 z-index 为一个较高的值 */
 /*鼠标停留在图标上时，图标呈现发光效果*/
