@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #fff708;
+  background: #e83b85;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2386,7 +2386,7 @@ body {
   height: 1rem;
   width: 1rem;
   border-radius: 0rem;
-  z-index: 10; /* 设置 z-index 为一个较高的值 */
+  z-index: 100; /* 设置 z-index 为一个较高的值 */
 /*鼠标停留在图标上时，图标呈现发光效果*/
 }
 .gallery:hover {
@@ -2401,7 +2401,7 @@ body {
   height: 1rem;
   width: 1rem;
   border-radius: 0rem;
-  z-index: 10; /* 设置 z-index 为一个较高的值 */
+  z-index: 100; /* 设置 z-index 为一个较高的值 */
 /*鼠标停留在图标上时，图标呈现发光效果*/
 }
 .gallery:hover {
