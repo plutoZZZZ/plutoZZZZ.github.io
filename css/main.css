@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffbf63;
+  background: #ffffcf;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2383,8 +2383,8 @@ body {
   opacity: 1;
   background-position: 0.3rem 0rem;
   background-repeat: no-repeat;
-  height: 1rem;
-  width: 1rem;
+  height: 0.6rem;
+  width: 0.6rem;
   border-radius: 0rem;
 /*鼠标停留在图标上时，图标呈现发光效果*/
 }
@@ -2397,8 +2397,8 @@ body {
   opacity: 1;
   background-position: 0.3rem 0rem;
   background-repeat: no-repeat;
-  height: 1rem;
-  width: 1rem;
+  height: 0.6rem;
+  width: 0.6rem;
   border-radius: 0rem;
 /*鼠标停留在图标上时，图标呈现发光效果*/
 }
