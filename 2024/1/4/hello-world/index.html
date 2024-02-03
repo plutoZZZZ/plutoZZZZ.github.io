@@ -170,7 +170,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lusz.jpg">
@@ -184,7 +184,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/" class="post-title-link" itemprop="url">LLMonGraph综述</a>
         </h2>
 
         <div class="post-meta">
@@ -194,15 +194,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-01-24 20:19:39" itemprop="dateCreated datePublished" datetime="2024-01-24T20:19:39+08:00">2024-01-24</time>
+              <time title="创建时间：2024-01-08 14:40:02" itemprop="dateCreated datePublished" datetime="2024-01-08T14:40:02+08:00">2024-01-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-25 15:59:34" itemprop="dateModified" datetime="2024-01-25T15:59:34+08:00">2024-01-25</time>
+                <time title="修改时间：2024-01-11 00:48:30" itemprop="dateModified" datetime="2024-01-11T00:48:30+08:00">2024-01-11</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
 
           
 
@@ -215,86 +224,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>​		今天介绍一下BGE和BGE2，BGE是由北京智源人工智能研究院提出的Embedding模型。在benchmark上显示，BGE相比于之前的中文embedding模型，在检索任务上至少提升了10个百分点。23年10月推出的BGE2使用了LLM辅助生成软标签、稳定蒸馏等手段，相较BGE做的更加深入。目前BGE在工业界的应用比较多。两篇论文的网址如下：</p>
-<p>​		BGE论文地址：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2309.07597.pdf">2309.07597.pdf (arxiv.org)</a></p>
-<p>​		BGE2论文地址：[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.07554">2310.07554] Retrieve Anything To Augment Large Language Models (arxiv.org)</a></p>
-<p>​		在RAG综述(<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2312.10997.pdf">2312.10997.pdf (arxiv.org)</a>)中提到了几种RAG的优化方式：检索内容优化、结构化语料、Embedding优化、流程优化。而BGE模型属于第三种：Embedding优化。在RAG任务中，Embedding模型负责将外部知识库中的信息映射为连续向量表示。如果Embedding模型能够更好地捕捉知识之间的关系、语义信息和上下文，生成模型就能够更准确地理解并利用这些知识。优化Embedding模型有助于提高知识表示的质量。</p>
-<h2 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1 基本概念"></a>1 基本概念</h2><p>​		在开始介绍BGE、BGE2之前，先介绍一下相关的基础概念。</p>
-<h3 id="1-1RAG"><a href="#1-1RAG" class="headerlink" title="1.1RAG"></a>1.1RAG</h3><p>​		虽然大语言模型在各种任务中表现出前所未有的性能，但它们仍然面临一系列挑战，包括幻觉、指令遵循和处理长上下文等问题。这些问题可以追溯到大语言模型的固有局限性：</p>
-<ul>
-<li><p><strong>知识边界</strong>。LLM由于模型参数有限，它们无法完全学习完海量的知识。此外，语言模型的内部知识是静态的，很难随着世界的动态变化而更新。</p>
-</li>
-<li><p><strong>记忆边界</strong>。LLM还具有的记忆边界，这主要是由于上下文长度的限制。具有上下文的LLM的训练和部署可能需要大量的计算和存储，这使得扩展它们的记忆能力变得非常困难。</p>
-</li>
-<li><p><strong>能力边界</strong>。首先，LLM局限于“语言空间”，无法与物理世界进行有意义的互动。其次，这些模型严重依赖人工指导，需要明确的用户指令和适当的演示示例才能有效地执行特定的任务。</p>
-</li>
-</ul>
-<p>​		而RAG是解决上述问题的一套有效方案,<strong>RAG</strong>的全称是Retrieval-Augmented Generation，中文翻译为检索增强生成。它是一个为大模型提供外部知识源的概念，这使它们能够生成准确且符合上下文的答案，同时能够减少模型幻觉。</p>
-<h3 id="1-2-预训练和微调-pre-training-fine-tuning"><a href="#1-2-预训练和微调-pre-training-fine-tuning" class="headerlink" title="1.2 预训练和微调(pre-training &amp;&amp; fine-tuning)"></a>1.2 预训练和微调(pre-training &amp;&amp; fine-tuning)</h3><p>​		在搭建模型完成一个特定的任务时，首先需要随机初始化参数，然后开始训练模型，不断调整直到损失越来越小。当结果较为满意时，可以将模型参数保存下来，以便训练好的模型可以在下次执行类似任务时获得较好的结果。这个过程就是 <strong>pre-training</strong>。</p>
-<p>​		之后，又来一个类似的任务。这时候可以直接使用之前保存下来的模型的参数来作为这一任务的初始化参数，然后在训练的过程中，依据结果不断进行一些修改。这时候使用的就是一个 <strong>pre-trained 模型</strong>，而过程就是 <strong>fine-tuning</strong>。</p>
-<h2 id="2-BGE"><a href="#2-BGE" class="headerlink" title="2 BGE"></a>2 BGE</h2><p>​		在BGE这篇文章中提出了C-PACK，一个中文Embedding领域的资源包，C-Pack包括三个关键资源： C-MTEB、C-MTP和C-TEM。另外BGE介绍了使用到的特殊训练方法。</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240122051022659-17060989996311.png" alt="image-20240122051022659"></p>
-<h3 id="2-1-C-MTEB"><a href="#2-1-C-MTEB" class="headerlink" title="2.1 C-MTEB"></a>2.1 C-MTEB</h3><p>​		在过去的几年里提出的研究中文Embedding的几个数据集如CMNLI、DuReader等都是独立策划的，每个数据集只关注Embedding的一个特定功能。本文提出的**C-MTEB(Chinese Massive Text Embedding Benchmark)**是为建立适当的benchmark，作为MTEB的中文扩展，可以全面评估中文Embedding的所有功能。C-MTEB包括35个公共可用数据集，数据集根据它们评估的Embedding的任务进行分类，分为6类:</p>
-<ul>
-<li><p>检索任务(Retrieval.)。对于每个查询，它在语料库中查找Top-k个相似的文档。</p>
-</li>
-<li><p>重排序(Re-ranking)。根据Embedding的相似度对候选文档重新排序。</p>
-</li>
-<li><p>语义文本相似度(STS)。基于两个句子的Embedding相似度来衡量它们的相关性。</p>
-</li>
-<li><p>分类任务(Classification)。基于label做输入embedding预测。</p>
-</li>
-<li><p>文本对分类(Pair-classification)。这个任务处理一对输入句子，它们的关系由Embedding相似度来预测。</p>
-</li>
-<li><p>聚类任务(Clustering)。聚类任务是将句子分成有意义的类。</p>
-<blockquote>
-<p>我觉得按照定义这里的分类任务应该表述为回归任务。另外上述有几个任务可能不好区分，STS和Pair-classification都基于Embedding相似度来实现的。但STS是判断两个文本是否表达相似的语义，Pair-classification是判断两个文本是否具有一定的关系（如：标题与文章的关系）。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="2-2-C-MTP"><a href="#2-2-C-MTP" class="headerlink" title="2.2 C-MTP"></a>2.2 C-MTP</h3><p>​		C-MTP(Chinese Massive Text Pairs)。 C-MTP是一个庞大的数据集，从labeled和unlabeled的中文语料库中提取，用于训练Embedding模型。</p>
-<ul>
-<li>unlabeled的数据主要来自网络，对于每一篇文章，提取(标题、段落)形成一个文本对。从网络和其他公共资源中挑选的文本对不能保证密切相关，因此，本文使用了一种简单的策略进行过滤：第三方模型Text2VecChinese2来对每个文本对的关系强度进行评分，并删除得分低于阈值的样本。</li>
-<li>labeled的数据使用的是T2 -Ranking、DuReader等公开数据集，虽然它比unlabeled的数据少得多，但大多数数据都是从人工注释中整理出来的，从而确保了相关性的高可信度。</li>
-</ul>
-<h3 id="2-3-C-TEM"><a href="#2-3-C-TEM" class="headerlink" title="2.3 C-TEM"></a>2.3 C-TEM</h3><p>​		C-TEM(Chinese Text Embedding Models)。C-TEM是一套涵盖多种参数规模的Embedding模型，有三种可选的参数规模:小型(24M)、基础(102M)和大型(326M)，它们为用户提供了在效率和有效性之间进行权衡的灵活性。</p>
-<p>​		C-TEM中的模型已经经过了良好的预训练，并且对各种任务具有很强的通用性。同时，如果将Embedding应用于特定场景,它们也可以进一步微调。</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240122202146190-17060989996312.png" alt="image-20240122202146190"></p>
-<h3 id="2-4-训练技巧"><a href="#2-4-训练技巧" class="headerlink" title="2.4 训练技巧"></a>2.4 训练技巧</h3><p>​		训练技巧有三个主要组成部分:1)预训练阶段使用<strong>RetroMAE</strong>方法，2)通用任务微调阶段进行C-MTP(unlabeled)上的对比学习，3)特定任务的微调阶段进行C-MTP(labeled)上的多任务学习。</p>
-<ul>
-<li><p><strong>预训练</strong>。BGE预训练过程所采用的<strong>RetroMAE</strong>方法(EMNLP2022)。首先，输入文本经掩码操作后由编码器（Encoder）映射为隐空间中的语义向量；然后解码器（Decoder）借助语义向量将另一段独立掩码的输入文本还原为原始的输入文本。RetroMAE的解码器结构简单，只有单层transformer，而且输入句子的掩码率很高，会使得解码变得具有挑战性，作者认为这样可以迫使生成高质量的embedding，以便可以以良好的保真度恢复原始输入。</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240123032730042-17060989996313.png" alt="image-20240123032730042"></p>
-</li>
-<li><p><strong>通用任务微调(General purpose fine-tuning)<strong>。这一个fine-tuning阶段的核心技术是对比学习，</strong>对比学习</strong>是一种训练模型的方法，通过比较正例和反例来学习数据的表示。首先介绍一些<strong>难负样本</strong>(hard negative samples)，一般在构造正负对时，大部分模型都简单的把单张图像及其增强副本作为正对，其余样本均视为负对。这一策略可能会导致的问题是模型把相距很远的样本分得很开，而距离较近的负样本对之间可能比较难被区分。</p>
-<p>​		在这里BGE没有刻意挖掘难负样本，而是纯粹依赖于批内负样本，并采用大batch size(高达19200)来提高embedding的判别性，主打一个简单粗暴 – 只要batch够大，在batch内就足以找到难负样本。</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240123035058647-17060989996314.png" alt="image-20240123035058647"></p>
-</li>
-<li><p><strong>特定任务的微调阶段</strong>。这一阶段的难点在于，不同任务间存在区别，如何这个条件下更好地做Multi-task learning。BGE提出了两种方法：第一种是instructionbased fine-tuning，在query端<strong>附加一条任务特定指令</strong>，即<br>$$<br>q^{\prime}\leftarrow q+I_t.<br>$$<br>指令是一个口头提示，它指定任务的性质，例如，“为query搜索相关段落”。</p>
-</li>
-</ul>
-<p>​		第二种方法是<strong>hard negative sampling</strong>。在训练过程中，采取<strong>ANN-style sampling strategy</strong>，为每个文本对(p, q)挖掘一个难负样本q ‘。</p>
-<h2 id="3-BGE2"><a href="#3-BGE2" class="headerlink" title="3 BGE2"></a>3 BGE2</h2><p>​		下面再简单介绍一下23年10月推出的LLM-Embedder，即BGE2。</p>
-<h3 id="3-1-全方位的检索增强"><a href="#3-1-全方位的检索增强" class="headerlink" title="3.1 全方位的检索增强"></a>3.1 全方位的检索增强</h3><p>​		我们前面介绍了LLM具有知识边界、记忆边界、能力边界导致的一些固有缺陷。为了克服这些限制，LLM需要通过RAG寻求外部援助。BGE2增强了检索内容的广度，将4种不同的检索器嵌入到模型中：</p>
-<ul>
-<li><p>知识检索器:提供外部知识，支持LLM处理知识密集型任务。</p>
-</li>
-<li><p>记忆检索器:收集超出直接上下文的信息，协助生成长序列。</p>
-</li>
-<li><p>工具检索器:选择合适的工具，允许LLM与物理世界有效互动。</p>
-</li>
-<li><p>示例检索器:定位预缓存的演示示例，从中可以自动生成LLM提示，以促进上下文学习。</p>
-</li>
-</ul>
-<p>​		<img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240124151654592-17060989996315.png" alt="image-20240124151654592"></p>
-<p>​		BGE2是<strong>第一个</strong>为LLM检索增强的所有关键方面提供全面支持的工作。</p>
-<h3 id="3-1-LLM辅助生成软标签"><a href="#3-1-LLM辅助生成软标签" class="headerlink" title="3.1 LLM辅助生成软标签"></a>3.1 LLM辅助生成软标签</h3><p>​		BGE2 中提出，对于Embedding模型的训练，可以让LLM帮忙生成样本的辅助标签，引导Embedding模型训练。辅助标签的生成可用如下公式表示：</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240124151911406-17060989996316.png" alt="image-20240124151911406"></p>
-<p>​		LLM(X|Y)代表Y条件下LLM生成X的可能性。对每一个候选的片段C，以及真实的输出O，基于LLM可以得到一个“奖励”分数。在已知的标准答案下，分别将问题和各个文档片段C放入prompt中，看LLM生成标准答案的概率r大小，当作辅助标签。r越大，代表对应的文档片段对生成正确答案的贡献越大，也就越重要。换句话说，如果一个检索候选结果导致更高的生成概率，那么它将被得到一个更高的奖励分数。</p>
-<h3 id="3-2-蒸馏"><a href="#3-2-蒸馏" class="headerlink" title="3.2 蒸馏"></a>3.2 蒸馏</h3><p>​		损失分为2部分。一方面采用对比学习的方法捕捉硬标签所反映的语义关系;同时，运用知识蒸馏的方法，从LLM辅助生成的软奖励中学习。具体方法是，利用以上LLM生成的软标签以及KL散度，对模型进行优化。知识蒸馏的损失函数被设置为：</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240124192316124-17060989996317.png" alt="image-20240124192316124"></p>
-<p>​		P为某个问题q对应的候选文档片段p的集合，e表示向量，&lt;.,.&gt;表示相似度操作，w是对所有候选文档p对应的辅助标签值r经过softmax变换后的值。本质是，如果LLM认为某个文档片段越重要，给它的优化权重越大。为了进一步稳定蒸馏效果，还可以对候选文档片段根据r进行排序，只用排名靠后的样本进行优化。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​		在BGE推出之时一度登顶英文榜单MTEB和中文榜单CMTEB,到本文撰写时(2024.1.24)也保持着前几名的名次。总结BGE相较于之前模型的主要优势，核心是两点，一是进行了基于RetroMAE的预训练，另一个是在finetune阶段的语料量级更加庞大。BGE2对BGE的提升主要在使用了LLM辅助生成软标签、稳定蒸馏等手段。</p>
-<p><img src="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/image-20240124193810154-17060989996318.png" alt="image-20240124193810154"></p>
+          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45606499/article/details/132708521">【论文阅读】《Unifying Large Language Models and Knowledge Graphs: A Roadmap》-CSDN博客</a></p>
+<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/01.png" alt="img"></p>
+<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/d4b878bffe654e1fb655854e06a0d5a0.png" alt="在这里插入图片描述"></p>
+<p>Graph Transformer</p>
+<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/v2-4a0c4400e04a86cf2b19d6c2d885bc93_720w.png" alt="img"></p>
+<p>COT</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/629087587">大模型思维链（Chain-of-Thought）技术原理 - 知乎 (zhihu.com)</a></p>
+<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/v2-ec6aeb333cdaba7b2af19fec9bcfb40c_720w.png" alt="img"></p>
+<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/v2-fb5a82b4689c8cfa03379636a07f7798_720w.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666649803">到底什么是“Latent Space 潜空间”？ - 知乎 (zhihu.com)</a></p>
+<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/2f9b694dccb38f9f597af058e752fdf5.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/384325550">UNIMO详解：基于跨模态对比学习的统一模态理解和生成 - 知乎 (zhihu.com)</a></p>
 
       
     </div>
@@ -314,7 +255,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lusz.jpg">
@@ -328,7 +269,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/" class="post-title-link" itemprop="url">论文阅读-BGE&&BGE2</a>
         </h2>
 
         <div class="post-meta">
@@ -338,15 +279,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-01-20 16:19:18" itemprop="dateCreated datePublished" datetime="2024-01-20T16:19:18+08:00">2024-01-20</time>
+              <time title="创建时间：2024-01-08 14:40:02" itemprop="dateCreated datePublished" datetime="2024-01-08T14:40:02+08:00">2024-01-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-24 20:19:17" itemprop="dateModified" datetime="2024-01-24T20:19:17+08:00">2024-01-24</time>
+                <time title="修改时间：2024-02-04 04:11:01" itemprop="dateModified" datetime="2024-02-04T04:11:01+08:00">2024-02-04</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
 
           
 
@@ -359,13 +309,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>title: ‘论文阅读-BGE&amp;&amp;BGE2’<br>date: 2024-01-08 14:40:02<br>categories: </p>
-<ul>
-<li>论文阅读<br>tags:</li>
-<li>BGE</li>
-<li>embedding</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/676410726">大名鼎鼎的BGE详解 - 知乎 (zhihu.com)</a></p>
+          <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/676410726">大名鼎鼎的BGE详解 - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661190270">开源标杆！最强中英双语大模型来了，340亿参数，超越 Llama2-70B等所有开源模型 - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/625481187/answer/3260085982">(27 封私信 &#x2F; 80 条消息) 大模型检索增强生成（RAG）有哪些好用的技巧？ - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661630646">大模型检索增强生成-向量篇(LLM Embedder) - 知乎 (zhihu.com)</a></p>
@@ -387,7 +331,7 @@
 <h3 id="1-2-预训练和微调-pre-training-fine-tuning"><a href="#1-2-预训练和微调-pre-training-fine-tuning" class="headerlink" title="1.2 预训练和微调(pre-training &amp;&amp; fine-tuning)"></a>1.2 预训练和微调(pre-training &amp;&amp; fine-tuning)</h3><p>​		在搭建模型完成一个特定的任务时，首先需要随机初始化参数，然后开始训练模型，不断调整直到损失越来越小。当结果较为满意时，可以将模型参数保存下来，以便训练好的模型可以在下次执行类似任务时获得较好的结果。这个过程就是 <strong>pre-training</strong>。</p>
 <p>​		之后，又来一个类似的任务。这时候可以直接使用之前保存下来的模型的参数来作为这一任务的初始化参数，然后在训练的过程中，依据结果不断进行一些修改。这时候使用的就是一个 <strong>pre-trained 模型</strong>，而过程就是 <strong>fine-tuning</strong>。</p>
 <h2 id="2-BGE"><a href="#2-BGE" class="headerlink" title="2 BGE"></a>2 BGE</h2><p>​		在BGE这篇文章中提出了C-PACK，一个中文Embedding领域的资源包，C-Pack包括三个关键资源： C-MTEB、C-MTP和C-TEM。另外BGE介绍了使用到的特殊训练方法。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png" alt="image-20240122051022659"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png" alt="image-20240122051022659"></p>
 <h3 id="2-1-C-MTEB"><a href="#2-1-C-MTEB" class="headerlink" title="2.1 C-MTEB"></a>2.1 C-MTEB</h3><p>​		在过去的几年里提出的研究中文Embedding的几个数据集如CMNLI、DuReader等都是独立策划的，每个数据集只关注Embedding的一个特定功能。本文提出的**C-MTEB(Chinese Massive Text Embedding Benchmark)**是为建立适当的benchmark，作为MTEB的中文扩展，可以全面评估中文Embedding的所有功能。C-MTEB包括35个公共可用数据集，数据集根据它们评估的Embedding的任务进行分类，分为6类:</p>
 <ul>
 <li><p>检索任务(Retrieval.)。对于每个查询，它在语料库中查找Top-k个相似的文档。</p>
@@ -413,15 +357,15 @@
 </ul>
 <h3 id="2-3-C-TEM"><a href="#2-3-C-TEM" class="headerlink" title="2.3 C-TEM"></a>2.3 C-TEM</h3><p>​		C-TEM(Chinese Text Embedding Models)。C-TEM是一套涵盖多种参数规模的Embedding模型，有三种可选的参数规模:小型(24M)、基础(102M)和大型(326M)，它们为用户提供了在效率和有效性之间进行权衡的灵活性。</p>
 <p>​		C-TEM中的模型已经经过了良好的预训练，并且对各种任务具有很强的通用性。同时，如果将Embedding应用于特定场景,它们也可以进一步微调。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122202146190.png" alt="image-20240122202146190"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122202146190.png" alt="image-20240122202146190"></p>
 <h3 id="2-4-训练技巧"><a href="#2-4-训练技巧" class="headerlink" title="2.4 训练技巧"></a>2.4 训练技巧</h3><p>​		训练技巧有三个主要组成部分:1)预训练阶段使用<strong>RetroMAE</strong>方法，2)通用任务微调阶段进行C-MTP(unlabeled)上的对比学习，3)特定任务的微调阶段进行C-MTP(labeled)上的多任务学习。</p>
 <ul>
 <li><p><strong>预训练</strong>。BGE预训练过程所采用的<strong>RetroMAE</strong>方法(EMNLP2022)。首先，输入文本经掩码操作后由编码器（Encoder）映射为隐空间中的语义向量；然后解码器（Decoder）借助语义向量将另一段独立掩码的输入文本还原为原始的输入文本。RetroMAE的解码器结构简单，只有单层transformer，而且输入句子的掩码率很高，会使得解码变得具有挑战性，作者认为这样可以迫使生成高质量的embedding，以便可以以良好的保真度恢复原始输入。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123032730042.png" alt="image-20240123032730042"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123032730042.png" alt="image-20240123032730042"></p>
 </li>
 <li><p><strong>通用任务微调(General purpose fine-tuning)<strong>。这一个fine-tuning阶段的核心技术是对比学习，</strong>对比学习</strong>是一种训练模型的方法，通过比较正例和反例来学习数据的表示。首先介绍一些<strong>难负样本</strong>(hard negative samples)，一般在构造正负对时，大部分模型都简单的把单张图像及其增强副本作为正对，其余样本均视为负对。这一策略可能会导致的问题是模型把相距很远的样本分得很开，而距离较近的负样本对之间可能比较难被区分。</p>
 <p>​		在这里BGE没有刻意挖掘难负样本，而是纯粹依赖于批内负样本，并采用大batch size(高达19200)来提高embedding的判别性，主打一个简单粗暴 – 只要batch够大，在batch内就足以找到难负样本。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123035058647.png" alt="image-20240123035058647"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123035058647.png" alt="image-20240123035058647"></p>
 </li>
 <li><p><strong>特定任务的微调阶段</strong>。这一阶段的难点在于，不同任务间存在区别，如何这个条件下更好地做Multi-task learning。BGE提出了两种方法：第一种是instructionbased fine-tuning，在query端<strong>附加一条任务特定指令</strong>，即<br>$$<br>q^{\prime}\leftarrow q+I_t.<br>$$<br>指令是一个口头提示，它指定任务的性质，例如，“为query搜索相关段落”。</p>
 </li>
@@ -439,16 +383,16 @@
 <li><p>示例检索器:定位预缓存的演示示例，从中可以自动生成LLM提示，以促进上下文学习。</p>
 </li>
 </ul>
-<p>​		<img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151654592.png" alt="image-20240124151654592"></p>
+<p>​		<img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151654592.png" alt="image-20240124151654592"></p>
 <p>​		BGE2是<strong>第一个</strong>为LLM检索增强的所有关键方面提供全面支持的工作。</p>
 <h3 id="3-1-LLM辅助生成软标签"><a href="#3-1-LLM辅助生成软标签" class="headerlink" title="3.1 LLM辅助生成软标签"></a>3.1 LLM辅助生成软标签</h3><p>​		BGE2 中提出，对于Embedding模型的训练，可以让LLM帮忙生成样本的辅助标签，引导Embedding模型训练。辅助标签的生成可用如下公式表示：</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151911406.png" alt="image-20240124151911406"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151911406.png" alt="image-20240124151911406"></p>
 <p>​		LLM(X|Y)代表Y条件下LLM生成X的可能性。对每一个候选的片段C，以及真实的输出O，基于LLM可以得到一个“奖励”分数。在已知的标准答案下，分别将问题和各个文档片段C放入prompt中，看LLM生成标准答案的概率r大小，当作辅助标签。r越大，代表对应的文档片段对生成正确答案的贡献越大，也就越重要。换句话说，如果一个检索候选结果导致更高的生成概率，那么它将被得到一个更高的奖励分数。</p>
 <h3 id="3-2-蒸馏"><a href="#3-2-蒸馏" class="headerlink" title="3.2 蒸馏"></a>3.2 蒸馏</h3><p>​		损失分为2部分。一方面采用对比学习的方法捕捉硬标签所反映的语义关系;同时，运用知识蒸馏的方法，从LLM辅助生成的软奖励中学习。具体方法是，利用以上LLM生成的软标签以及KL散度，对模型进行优化。知识蒸馏的损失函数被设置为：</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124192316124.png" alt="image-20240124192316124"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124192316124.png" alt="image-20240124192316124"></p>
 <p>​		P为某个问题q对应的候选文档片段p的集合，e表示向量，&lt;.,.&gt;表示相似度操作，w是对所有候选文档p对应的辅助标签值r经过softmax变换后的值。本质是，如果LLM认为某个文档片段越重要，给它的优化权重越大。为了进一步稳定蒸馏效果，还可以对候选文档片段根据r进行排序，只用排名靠后的样本进行优化。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​		在BGE推出之时一度登顶英文榜单MTEB和中文榜单CMTEB,到本文撰写时(2024.1.24)也保持着前几名的名次。总结BGE相较于之前模型的主要优势，核心是两点，一是进行了基于RetroMAE的预训练，另一个是在finetune阶段的语料量级更加庞大。BGE2对BGE的提升主要在使用了LLM辅助生成软标签、稳定蒸馏等手段。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124193810154.png" alt="image-20240124193810154"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124193810154.png" alt="image-20240124193810154"></p>
 
       
     </div>
@@ -523,91 +467,6 @@
 
       
           
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lusz.jpg">
-      <meta itemprop="name" content="Lusz">
-      <meta itemprop="description" content="一名优秀的少先队员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lusz的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/" class="post-title-link" itemprop="url">LLMonGraph综述</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-01-08 14:40:02" itemprop="dateCreated datePublished" datetime="2024-01-08T14:40:02+08:00">2024-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-11 00:48:30" itemprop="dateModified" datetime="2024-01-11T00:48:30+08:00">2024-01-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45606499/article/details/132708521">【论文阅读】《Unifying Large Language Models and Knowledge Graphs: A Roadmap》-CSDN博客</a></p>
-<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/01.png" alt="img"></p>
-<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/d4b878bffe654e1fb655854e06a0d5a0.png" alt="在这里插入图片描述"></p>
-<p>Graph Transformer</p>
-<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/v2-4a0c4400e04a86cf2b19d6c2d885bc93_720w.png" alt="img"></p>
-<p>COT</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/629087587">大模型思维链（Chain-of-Thought）技术原理 - 知乎 (zhihu.com)</a></p>
-<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/v2-ec6aeb333cdaba7b2af19fec9bcfb40c_720w.png" alt="img"></p>
-<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/v2-fb5a82b4689c8cfa03379636a07f7798_720w.png" alt="img"></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666649803">到底什么是“Latent Space 潜空间”？ - 知乎 (zhihu.com)</a></p>
-<p><img src="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/2f9b694dccb38f9f597af058e752fdf5.png" alt="img"></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/384325550">UNIMO详解：基于跨模态对比学习的统一模态理解和生成 - 知乎 (zhihu.com)</a></p>
-
       
     </div>
 
@@ -1013,7 +872,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1026,7 +885,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

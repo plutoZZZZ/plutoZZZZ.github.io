@@ -23,28 +23,30 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="title: ‘论文阅读-BGE&amp;&amp;BGE2’date: 2024-01-08 14:40:02categories:   论文阅读tags: BGE embedding  大名鼎鼎的BGE详解 - 知乎 (zhihu.com) 开源标杆！最强中英双语大模型来了，340亿参数，超越 Llama2-70B等所有开源模型 - 知乎 (zhihu.com) (27 封私信 &#x2F;">
+  <meta name="description" content="大名鼎鼎的BGE详解 - 知乎 (zhihu.com) 开源标杆！最强中英双语大模型来了，340亿参数，超越 Llama2-70B等所有开源模型 - 知乎 (zhihu.com) (27 封私信 &#x2F; 80 条消息) 大模型检索增强生成（RAG）有哪些好用的技巧？ - 知乎 (zhihu.com) 大模型检索增强生成-向量篇(LLM Embedder) - 知乎 (zhihu.com) [">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lusz的博客">
-<meta property="og:url" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/index.html">
+<meta property="og:title" content="论文阅读-BGE&amp;&amp;BGE2">
+<meta property="og:url" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/index.html">
 <meta property="og:site_name" content="Lusz的博客">
-<meta property="og:description" content="title: ‘论文阅读-BGE&amp;&amp;BGE2’date: 2024-01-08 14:40:02categories:   论文阅读tags: BGE embedding  大名鼎鼎的BGE详解 - 知乎 (zhihu.com) 开源标杆！最强中英双语大模型来了，340亿参数，超越 Llama2-70B等所有开源模型 - 知乎 (zhihu.com) (27 封私信 &#x2F;">
+<meta property="og:description" content="大名鼎鼎的BGE详解 - 知乎 (zhihu.com) 开源标杆！最强中英双语大模型来了，340亿参数，超越 Llama2-70B等所有开源模型 - 知乎 (zhihu.com) (27 封私信 &#x2F; 80 条消息) 大模型检索增强生成（RAG）有哪些好用的技巧？ - 知乎 (zhihu.com) 大模型检索增强生成-向量篇(LLM Embedder) - 知乎 (zhihu.com) [">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122202146190.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123032730042.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123035058647.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151654592.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151911406.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124192316124.png">
-<meta property="og:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124193810154.png">
-<meta property="article:published_time" content="2024-01-20T08:19:18.063Z">
-<meta property="article:modified_time" content="2024-01-24T12:19:17.343Z">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122202146190.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123032730042.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123035058647.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151654592.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151911406.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124192316124.png">
+<meta property="og:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124193810154.png">
+<meta property="article:published_time" content="2024-01-08T06:40:02.000Z">
+<meta property="article:modified_time" content="2024-02-03T20:11:01.183Z">
 <meta property="article:author" content="Lusz">
+<meta property="article:tag" content="BGE">
+<meta property="article:tag" content="embedding">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png">
+<meta name="twitter:image" content="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png">
 
-<link rel="canonical" href="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/">
+<link rel="canonical" href="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/">
 
 
 <script id="page-configurations">
@@ -57,7 +59,7 @@
   };
 </script>
 
-  <title> | Lusz的博客</title>
+  <title>论文阅读-BGE&&BGE2 | Lusz的博客</title>
   
 
 
@@ -182,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lusz.jpg">
@@ -195,7 +197,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          论文阅读-BGE&&BGE2
         </h1>
 
         <div class="post-meta">
@@ -205,15 +207,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-01-20 16:19:18" itemprop="dateCreated datePublished" datetime="2024-01-20T16:19:18+08:00">2024-01-20</time>
+              <time title="创建时间：2024-01-08 14:40:02" itemprop="dateCreated datePublished" datetime="2024-01-08T14:40:02+08:00">2024-01-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-24 20:19:17" itemprop="dateModified" datetime="2024-01-24T20:19:17+08:00">2024-01-24</time>
+                <time title="修改时间：2024-02-04 04:11:01" itemprop="dateModified" datetime="2024-02-04T04:11:01+08:00">2024-02-04</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
 
           
 
@@ -226,13 +237,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>title: ‘论文阅读-BGE&amp;&amp;BGE2’<br>date: 2024-01-08 14:40:02<br>categories: </p>
-<ul>
-<li>论文阅读<br>tags:</li>
-<li>BGE</li>
-<li>embedding</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/676410726">大名鼎鼎的BGE详解 - 知乎 (zhihu.com)</a></p>
+        <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/676410726">大名鼎鼎的BGE详解 - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661190270">开源标杆！最强中英双语大模型来了，340亿参数，超越 Llama2-70B等所有开源模型 - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/625481187/answer/3260085982">(27 封私信 &#x2F; 80 条消息) 大模型检索增强生成（RAG）有哪些好用的技巧？ - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661630646">大模型检索增强生成-向量篇(LLM Embedder) - 知乎 (zhihu.com)</a></p>
@@ -254,7 +259,7 @@
 <h3 id="1-2-预训练和微调-pre-training-fine-tuning"><a href="#1-2-预训练和微调-pre-training-fine-tuning" class="headerlink" title="1.2 预训练和微调(pre-training &amp;&amp; fine-tuning)"></a>1.2 预训练和微调(pre-training &amp;&amp; fine-tuning)</h3><p>​		在搭建模型完成一个特定的任务时，首先需要随机初始化参数，然后开始训练模型，不断调整直到损失越来越小。当结果较为满意时，可以将模型参数保存下来，以便训练好的模型可以在下次执行类似任务时获得较好的结果。这个过程就是 <strong>pre-training</strong>。</p>
 <p>​		之后，又来一个类似的任务。这时候可以直接使用之前保存下来的模型的参数来作为这一任务的初始化参数，然后在训练的过程中，依据结果不断进行一些修改。这时候使用的就是一个 <strong>pre-trained 模型</strong>，而过程就是 <strong>fine-tuning</strong>。</p>
 <h2 id="2-BGE"><a href="#2-BGE" class="headerlink" title="2 BGE"></a>2 BGE</h2><p>​		在BGE这篇文章中提出了C-PACK，一个中文Embedding领域的资源包，C-Pack包括三个关键资源： C-MTEB、C-MTP和C-TEM。另外BGE介绍了使用到的特殊训练方法。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png" alt="image-20240122051022659"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122051022659.png" alt="image-20240122051022659"></p>
 <h3 id="2-1-C-MTEB"><a href="#2-1-C-MTEB" class="headerlink" title="2.1 C-MTEB"></a>2.1 C-MTEB</h3><p>​		在过去的几年里提出的研究中文Embedding的几个数据集如CMNLI、DuReader等都是独立策划的，每个数据集只关注Embedding的一个特定功能。本文提出的**C-MTEB(Chinese Massive Text Embedding Benchmark)**是为建立适当的benchmark，作为MTEB的中文扩展，可以全面评估中文Embedding的所有功能。C-MTEB包括35个公共可用数据集，数据集根据它们评估的Embedding的任务进行分类，分为6类:</p>
 <ul>
 <li><p>检索任务(Retrieval.)。对于每个查询，它在语料库中查找Top-k个相似的文档。</p>
@@ -280,15 +285,15 @@
 </ul>
 <h3 id="2-3-C-TEM"><a href="#2-3-C-TEM" class="headerlink" title="2.3 C-TEM"></a>2.3 C-TEM</h3><p>​		C-TEM(Chinese Text Embedding Models)。C-TEM是一套涵盖多种参数规模的Embedding模型，有三种可选的参数规模:小型(24M)、基础(102M)和大型(326M)，它们为用户提供了在效率和有效性之间进行权衡的灵活性。</p>
 <p>​		C-TEM中的模型已经经过了良好的预训练，并且对各种任务具有很强的通用性。同时，如果将Embedding应用于特定场景,它们也可以进一步微调。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122202146190.png" alt="image-20240122202146190"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240122202146190.png" alt="image-20240122202146190"></p>
 <h3 id="2-4-训练技巧"><a href="#2-4-训练技巧" class="headerlink" title="2.4 训练技巧"></a>2.4 训练技巧</h3><p>​		训练技巧有三个主要组成部分:1)预训练阶段使用<strong>RetroMAE</strong>方法，2)通用任务微调阶段进行C-MTP(unlabeled)上的对比学习，3)特定任务的微调阶段进行C-MTP(labeled)上的多任务学习。</p>
 <ul>
 <li><p><strong>预训练</strong>。BGE预训练过程所采用的<strong>RetroMAE</strong>方法(EMNLP2022)。首先，输入文本经掩码操作后由编码器（Encoder）映射为隐空间中的语义向量；然后解码器（Decoder）借助语义向量将另一段独立掩码的输入文本还原为原始的输入文本。RetroMAE的解码器结构简单，只有单层transformer，而且输入句子的掩码率很高，会使得解码变得具有挑战性，作者认为这样可以迫使生成高质量的embedding，以便可以以良好的保真度恢复原始输入。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123032730042.png" alt="image-20240123032730042"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123032730042.png" alt="image-20240123032730042"></p>
 </li>
 <li><p><strong>通用任务微调(General purpose fine-tuning)<strong>。这一个fine-tuning阶段的核心技术是对比学习，</strong>对比学习</strong>是一种训练模型的方法，通过比较正例和反例来学习数据的表示。首先介绍一些<strong>难负样本</strong>(hard negative samples)，一般在构造正负对时，大部分模型都简单的把单张图像及其增强副本作为正对，其余样本均视为负对。这一策略可能会导致的问题是模型把相距很远的样本分得很开，而距离较近的负样本对之间可能比较难被区分。</p>
 <p>​		在这里BGE没有刻意挖掘难负样本，而是纯粹依赖于批内负样本，并采用大batch size(高达19200)来提高embedding的判别性，主打一个简单粗暴 – 只要batch够大，在batch内就足以找到难负样本。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123035058647.png" alt="image-20240123035058647"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240123035058647.png" alt="image-20240123035058647"></p>
 </li>
 <li><p><strong>特定任务的微调阶段</strong>。这一阶段的难点在于，不同任务间存在区别，如何这个条件下更好地做Multi-task learning。BGE提出了两种方法：第一种是instructionbased fine-tuning，在query端<strong>附加一条任务特定指令</strong>，即<br>$$<br>q^{\prime}\leftarrow q+I_t.<br>$$<br>指令是一个口头提示，它指定任务的性质，例如，“为query搜索相关段落”。</p>
 </li>
@@ -306,16 +311,16 @@
 <li><p>示例检索器:定位预缓存的演示示例，从中可以自动生成LLM提示，以促进上下文学习。</p>
 </li>
 </ul>
-<p>​		<img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151654592.png" alt="image-20240124151654592"></p>
+<p>​		<img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151654592.png" alt="image-20240124151654592"></p>
 <p>​		BGE2是<strong>第一个</strong>为LLM检索增强的所有关键方面提供全面支持的工作。</p>
 <h3 id="3-1-LLM辅助生成软标签"><a href="#3-1-LLM辅助生成软标签" class="headerlink" title="3.1 LLM辅助生成软标签"></a>3.1 LLM辅助生成软标签</h3><p>​		BGE2 中提出，对于Embedding模型的训练，可以让LLM帮忙生成样本的辅助标签，引导Embedding模型训练。辅助标签的生成可用如下公式表示：</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151911406.png" alt="image-20240124151911406"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124151911406.png" alt="image-20240124151911406"></p>
 <p>​		LLM(X|Y)代表Y条件下LLM生成X的可能性。对每一个候选的片段C，以及真实的输出O，基于LLM可以得到一个“奖励”分数。在已知的标准答案下，分别将问题和各个文档片段C放入prompt中，看LLM生成标准答案的概率r大小，当作辅助标签。r越大，代表对应的文档片段对生成正确答案的贡献越大，也就越重要。换句话说，如果一个检索候选结果导致更高的生成概率，那么它将被得到一个更高的奖励分数。</p>
 <h3 id="3-2-蒸馏"><a href="#3-2-蒸馏" class="headerlink" title="3.2 蒸馏"></a>3.2 蒸馏</h3><p>​		损失分为2部分。一方面采用对比学习的方法捕捉硬标签所反映的语义关系;同时，运用知识蒸馏的方法，从LLM辅助生成的软奖励中学习。具体方法是，利用以上LLM生成的软标签以及KL散度，对模型进行优化。知识蒸馏的损失函数被设置为：</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124192316124.png" alt="image-20240124192316124"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124192316124.png" alt="image-20240124192316124"></p>
 <p>​		P为某个问题q对应的候选文档片段p的集合，e表示向量，&lt;.,.&gt;表示相似度操作，w是对所有候选文档p对应的辅助标签值r经过softmax变换后的值。本质是，如果LLM认为某个文档片段越重要，给它的优化权重越大。为了进一步稳定蒸馏效果，还可以对候选文档片段根据r进行排序，只用排名靠后的样本进行优化。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​		在BGE推出之时一度登顶英文榜单MTEB和中文榜单CMTEB,到本文撰写时(2024.1.24)也保持着前几名的名次。总结BGE相较于之前模型的主要优势，核心是两点，一是进行了基于RetroMAE的预训练，另一个是在finetune阶段的语料量级更加庞大。BGE2对BGE的提升主要在使用了LLM辅助生成软标签、稳定蒸馏等手段。</p>
-<p><img src="/2024/01/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124193810154.png" alt="image-20240124193810154"></p>
+<p><img src="/2024/01/08/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE&&BGE2/image-20240124193810154.png" alt="image-20240124193810154"></p>
 
     </div>
 
@@ -324,6 +329,10 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BGE/" rel="tag"># BGE</a>
+              <a href="/tags/embedding/" rel="tag"># embedding</a>
+          </div>
 
         
 
@@ -335,8 +344,8 @@
       <i class="fa fa-chevron-left"></i> [论文阅读]APPNP
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/01/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-BGE1&&BGE2/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
+    <a href="/2024/01/08/LLMonGraph%E7%BB%BC%E8%BF%B0/" rel="next" title="LLMonGraph综述">
+      LLMonGraph综述 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -412,7 +421,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -425,7 +434,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
