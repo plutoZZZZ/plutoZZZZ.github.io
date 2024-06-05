@@ -170,6 +170,176 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/10/LlamdIndex%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lusz.jpg">
+      <meta itemprop="name" content="Lusz">
+      <meta itemprop="description" content="一名优秀的少先队员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lusz的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/10/LlamdIndex%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB/" class="post-title-link" itemprop="url">LlamdIndex文档阅读</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-10 22:17:06" itemprop="dateCreated datePublished" datetime="2024-03-10T22:17:06+08:00">2024-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-15 17:45:02" itemprop="dateModified" datetime="2024-03-15T17:45:02+08:00">2024-03-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LlamdIndex/" itemprop="url" rel="index"><span itemprop="name">LlamdIndex</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这篇文章用于记录llamdaindex文档阅读过程中碰到的问题。</p>
+<p>文档地址：<a target="_blank" rel="noopener" href="https://docs.llamaindex.ai/en/stable/">LlamaIndex 🦙 v0.10.18.post1</a>。</p>
+<h3 id="Storing-your-index"><a href="#Storing-your-index" class="headerlink" title="Storing your index"></a>Storing your index</h3><p>使用下面的语句</p>
+<p><code>index.storage_context.persist()</code></p>
+<p>在索引存在时加载它</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os.path</span><br><span class="line"><span class="keyword">from</span> llama_index.core <span class="keyword">import</span> (</span><br><span class="line">    VectorStoreIndex,</span><br><span class="line">    SimpleDirectoryReader,</span><br><span class="line">    StorageContext,</span><br><span class="line">    load_index_from_storage,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># check if storage already exists</span></span><br><span class="line">PERSIST_DIR = <span class="string">&quot;./storage&quot;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(PERSIST_DIR):</span><br><span class="line">    <span class="comment"># load the documents and create the index</span></span><br><span class="line">    documents = SimpleDirectoryReader(<span class="string">&quot;data&quot;</span>).load_data()</span><br><span class="line">    index = VectorStoreIndex.from_documents(documents)</span><br><span class="line">    <span class="comment"># store it for later</span></span><br><span class="line">    index.storage_context.persist(persist_dir=PERSIST_DIR)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># load the existing index</span></span><br><span class="line">    storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)</span><br><span class="line">    index = load_index_from_storage(storage_context)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Either way we can now query the index</span></span><br><span class="line">query_engine = index.as_query_engine()</span><br><span class="line">response = query_engine.query(<span class="string">&quot;What did the author do growing up?&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+<h3 id="文档分割更小"><a href="#文档分割更小" class="headerlink" title="文档分割更小"></a>文档分割更小</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Global settings</span></span><br><span class="line"><span class="keyword">from</span> llama_index.core <span class="keyword">import</span> Settings</span><br><span class="line"></span><br><span class="line">Settings.chunk_size = <span class="number">512</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Local settings</span></span><br><span class="line"><span class="keyword">from</span> llama_index.core.node_parser <span class="keyword">import</span> SentenceSplitter</span><br><span class="line"></span><br><span class="line">index = VectorStoreIndex.from_documents(</span><br><span class="line">    documents, transformations=[SentenceSplitter(chunk_size=<span class="number">512</span>)]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="QA-聊天"><a href="#QA-聊天" class="headerlink" title="QA-&gt;聊天"></a>QA-&gt;聊天</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> llama_index.core <span class="keyword">import</span> VectorStoreIndex, SimpleDirectoryReader</span><br><span class="line"></span><br><span class="line">documents = SimpleDirectoryReader(<span class="string">&quot;data&quot;</span>).load_data()</span><br><span class="line">index = VectorStoreIndex.from_documents(documents)</span><br><span class="line">query_engine = index.as_chat_engine()</span><br><span class="line">response = query_engine.chat(<span class="string">&quot;What did the author do growing up?&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br><span class="line"></span><br><span class="line">response = query_engine.chat(<span class="string">&quot;Oh interesting, tell me more.&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+
+<h1 id="QA模式"><a href="#QA模式" class="headerlink" title="QA模式"></a>QA模式</h1><h3 id="语义搜索"><a href="#语义搜索" class="headerlink" title="语义搜索"></a>语义搜索</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> llama_index.core <span class="keyword">import</span> VectorStoreIndex, SimpleDirectoryReader</span><br><span class="line"></span><br><span class="line">documents = SimpleDirectoryReader(<span class="string">&quot;data&quot;</span>).load_data()</span><br><span class="line">index = VectorStoreIndex.from_documents(documents)</span><br><span class="line">query_engine = index.as_query_engine()</span><br><span class="line">response = query_engine.query(<span class="string">&quot;What did the author do growing up?&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Summarization"><a href="#Summarization" class="headerlink" title="Summarization"></a>Summarization</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index = SummaryIndex.from_documents(documents)</span><br><span class="line"></span><br><span class="line">query_engine = index.as_query_engine(response_mode=<span class="string">&quot;tree_summarize&quot;</span>)</span><br><span class="line">response = query_engine.query(<span class="string">&quot;&lt;summarization_query&gt;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="混合引擎"><a href="#混合引擎" class="headerlink" title="混合引擎"></a>混合引擎</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> llama_index.core <span class="keyword">import</span> TreeIndex, VectorStoreIndex</span><br><span class="line"><span class="keyword">from</span> llama_index.core.tools <span class="keyword">import</span> QueryEngineTool</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># define sub-indices</span></span><br><span class="line">index1 = VectorStoreIndex.from_documents(notion_docs)</span><br><span class="line">index2 = VectorStoreIndex.from_documents(slack_docs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define query engines and tools</span></span><br><span class="line">tool1 = QueryEngineTool.from_defaults(</span><br><span class="line">    query_engine=index1.as_query_engine(),</span><br><span class="line">    description=<span class="string">&quot;Use this query engine to do...&quot;</span>,</span><br><span class="line">)</span><br><span class="line">tool2 = QueryEngineTool.from_defaults(</span><br><span class="line">    query_engine=index2.as_query_engine(),</span><br><span class="line">    description=<span class="string">&quot;Use this query engine for something else...&quot;</span>,</span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span> llama_index.core.query_engine <span class="keyword">import</span> RouterQueryEngine</span><br><span class="line"></span><br><span class="line">query_engine = RouterQueryEngine.from_defaults(</span><br><span class="line">    query_engine_tools=[tool1, tool2]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">response = query_engine.query(</span><br><span class="line">    <span class="string">&quot;In Notion, give me a summary of the product roadmap.&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Usage-Pattern使用模式"><a href="#Usage-Pattern使用模式" class="headerlink" title="Usage Pattern使用模式"></a>Usage Pattern使用模式</h3><p><a target="_blank" rel="noopener" href="https://docs.llamaindex.ai/en/stable/module_guides/querying/structured_outputs/query_engine.html">Query Engines + Pydantic Outputs - LlamaIndex 🦙 v0.10.19</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/09/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3CUDA%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lusz.jpg">
+      <meta itemprop="name" content="Lusz">
+      <meta itemprop="description" content="一名优秀的少先队员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lusz的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/09/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3CUDA%E6%B5%81/" class="post-title-link" itemprop="url">深入理解CUDA流</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-09 23:21:25" itemprop="dateCreated datePublished" datetime="2024-03-09T23:21:25+08:00">2024-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-10 01:13:10" itemprop="dateModified" datetime="2024-03-10T01:13:10+08:00">2024-03-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CUDA/" itemprop="url" rel="index"><span itemprop="name">CUDA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="CUDA流"><a href="#CUDA流" class="headerlink" title="CUDA流"></a>CUDA流</h1><p>CUDA流表示一个GPU操作队列，该队列中的操作将以添加到流中的先后顺序而依次执行。可以将一个流看做是GPU上的一个任务，不同任务可以并行执行。</p>
+<p><img src="/2024/03/09/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3CUDA%E6%B5%81/v2-669c82594df854de62c75c948a087a2a_1440w.webp" alt="img"></p>
+<p><img src="/2024/03/09/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3CUDA%E6%B5%81/webp.webp" alt="img"></p>
+<p>[<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a39a4742979e">CUDA编程原理] CUDA Stream - 流同步和流管理 - 简书 (jianshu.com)</a></p>
+<h1 id="流同步"><a href="#流同步" class="headerlink" title="流同步"></a>流同步</h1><ul>
+<li>默认流是一个隐式流（无需显式创建，CUDA中默认存在），它与同一<code>CUcontext</code>[<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a39a4742979e#fn3">3]</a>中的所有其他流同步，非阻塞流（non-blocking streams）除外。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/neo4j%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -193,10 +363,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-02-19 04:36:00 / 修改时间：04:40:31" itemprop="dateCreated datePublished" datetime="2024-02-19T04:36:00+08:00">2024-02-19</time>
+              <time title="创建时间：2024-02-19 04:36:00" itemprop="dateCreated datePublished" datetime="2024-02-19T04:36:00+08:00">2024-02-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-02-22 00:36:17" itemprop="dateModified" datetime="2024-02-22T00:36:17+08:00">2024-02-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -224,6 +400,9 @@
 
 <p><img src="/2024/02/19/neo4j%E5%AE%89%E8%A3%85/image-20240219044022875.png" alt="image-20240219044022875"></p>
 <p>最终连接完成</p>
+<h3 id="APOC插件的问题"><a href="#APOC插件的问题" class="headerlink" title="APOC插件的问题"></a>APOC插件的问题</h3><p>需要去neo4j.conf文件里添加两行</p>
+<p>然后将labs里的apoc插件复制到plugins里</p>
+<p>注意修改都要在当前容器里</p>
 
       
     </div>
@@ -945,20 +1124,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
